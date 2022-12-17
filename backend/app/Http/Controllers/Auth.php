@@ -13,11 +13,11 @@ class Auth extends Controller
     $user = User::where('email', $request->email)->first();
 
     if (!$user) {
-      response()->json('not authorized', 401);
+      return response()->json('not authorized', 401);
     }
 
     if (!password_verify($request->password, $user->password)) {
-      response()->json('not authorized', 401);
+      return response()->json('not authorized', 401);
     }
 
     $token = Jwt::create($user);
